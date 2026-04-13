@@ -1,0 +1,4 @@
+#ifndef __RAZOR_ENGINE_MAIN_HEADER_FILE
+#define __RAZOR_ENGINE_MAIN_HEADER_FILE
+
+#endif
