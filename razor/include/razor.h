@@ -1,6 +1,12 @@
 #ifndef __RAZOR_ENGINE_MAIN_HEADER_FILE
 #define __RAZOR_ENGINE_MAIN_HEADER_FILE
 
+#include <stdint.h>
+
+#define RzBool uint8_t
+#define RZ_TRUE 1U
+#define RZ_FALSE 0U
+
 typedef enum {
     RZ_SUCCESS = 0,
 
@@ -19,5 +25,28 @@ typedef enum {
     RZ_NOT_INITIALIZED = 10,
     RZ_ALREADY_INITIALIZED = 11,
 } RzResult;
+
+typedef struct {
+    void* (*malloc)(size_t size);
+    void* (*calloc)(size_t num, size_t size);
+    void* (*realloc)(void* ptr, size_t new_size);
+    void  (*free)(void* ptr);
+
+    void* (*aligned_malloc)(size_t size, size_t alignment);
+    void* (*aligned_calloc)(size_t num, size_t size, size_t alignment);
+    void* (*aligned_realloc)(void* ptr, size_t new_size, size_t alignment);
+    void  (*aligned_free)(void* ptr);
+} RzAllocator;
+
+typedef struct RzWindow_t RzWindow_t;
+typedef RzWindow_t* RzWindow;
+
+RzResult rz_create_window(
+    RzWindow* window,
+    const char* title,
+    const int32_t width,
+    const int32_t height,
+    const RzAllocator* allocator
+);
 
 #endif
